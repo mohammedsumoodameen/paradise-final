@@ -1,0 +1,422 @@
+/* Tokens, reset, type and the handful of pieces every page shares. */
+
+:root {
+  /* Ink and paper */
+  --ink: #222222;
+  --ink-soft: #4a4a4a;
+  --paper: #ffffff;
+  --mist: #f5f5f5;
+  --line: #e4e4e4;
+  --coal: #383838;
+
+  /* The four colours of the Paradise kite. Orange leads; the rest colour the journey. */
+  --accent: #ef6424; /* headline word, marks */
+  --press: #ff8a3a; /* anything that can be pressed */
+  --press-deep: #f26a1f;
+  --sky: #5fd0ec;
+  --sky-deep: #0aa6c6;
+  --leaf: #b4dc6e;
+  --leaf-deep: #6aa32a;
+  --sun: #ffc857;
+  --sun-deep: #e79a0c;
+  --coral: #ff9c8a;
+  --coral-deep: #e5503d;
+  --error: #c62828;
+
+  --font-display: 'Oxanium Variable', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --gutter: clamp(20px, 4vw, 60px);
+  --wrap: 1760px; /* wide enough that a desktop screen is filled edge to edge, bar the gutter */
+  --r-xl: clamp(40px, 7vw, 96px); /* big media */
+  --r-lg: clamp(28px, 3.4vw, 44px); /* cards */
+  --r-md: 22px;
+  --shadow: 0 34px 44px -30px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 18px 40px -22px rgba(0, 0, 0, 0.3);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 24px;
+}
+html.motion {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+[id] {
+  scroll-margin-top: 24px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 100;
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.skip:focus {
+  top: 16px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ─── Type ────────────────────────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(38px, 6.2vw, 80px);
+  line-height: 0.98;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.display--hero {
+  font-size: clamp(42px, 6.6vw, 92px);
+}
+.display--sm {
+  font-size: clamp(30px, 4vw, 52px);
+}
+.display__line {
+  display: block;
+}
+.hl {
+  color: var(--accent);
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.lead {
+  font-size: clamp(19px, 1.8vw, 23px);
+  line-height: 1.5;
+}
+.copy {
+  max-width: 44ch;
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.15;
+}
+.dash {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  margin-block: 16px;
+}
+.text-link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--press);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.text-link:hover {
+  color: var(--accent);
+}
+
+/* ─── Things you press ────────────────────────────────────────────────────── */
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.arrow-link__pill {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 32px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    width 0.3s var(--ease);
+}
+.arrow-link:hover .arrow-link__pill {
+  background: var(--press);
+  border-color: var(--press);
+  color: var(--ink);
+  width: 76px;
+}
+.arrow-link--light {
+  color: #fff;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  background: var(--press);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.25s,
+    transform 0.25s var(--ease);
+}
+.btn:hover {
+  background: var(--press-deep);
+  transform: translateY(-2px);
+}
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+.btn--ink {
+  background: var(--ink);
+  color: #fff;
+}
+.btn--ink:hover {
+  background: #000;
+}
+.btn--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.btn--ghost:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+.round-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--press);
+  color: var(--ink);
+  font-size: 22px;
+  transition:
+    background-color 0.25s,
+    transform 0.25s var(--ease);
+}
+.round-btn:hover {
+  background: var(--press-deep);
+  transform: scale(1.06);
+}
+.round-btn--sm {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.chip {
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+.chip:hover {
+  border-color: var(--line);
+}
+.chip[aria-pressed='true'],
+.chip[aria-selected='true'] {
+  border-color: var(--ink);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ─── Surfaces ────────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--mist);
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 3vw, 38px);
+}
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--mist);
+  box-shadow: var(--shadow);
+}
+.media > img,
+.media > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* The soft dark foot every photograph on the site stands on. */
+.media--foot::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(to bottom, transparent, rgba(24, 24, 24, 0.82));
+  pointer-events: none;
+}
+
+/* ─── Motion ──────────────────────────────────────────────────────────────── */
+
+.motion .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+}
+.motion .reveal.is-seen {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── Popup ───────────────────────────────────────────────────────────────── */
+
+.modal {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: min(760px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  color: var(--ink);
+  overflow: visible;
+}
+.modal::backdrop {
+  background: rgba(24, 24, 24, 0.72);
+}
+.modal__body {
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 5vw, 56px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+.modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  z-index: 2;
+}
+.motion .modal[open] {
+  animation: pop 0.35s var(--ease);
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
