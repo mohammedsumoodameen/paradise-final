@@ -308,17 +308,11 @@
   display: grid;
   place-items: center;
   width: clamp(120px, 12vw, 164px);
-  aspect-ratio: 1;
-  border-radius: 34% / 36%;
-  background: #fff;
-  padding: 18px;
-  box-shadow: 0 22px 30px -16px rgba(0, 0, 0, 0.6);
   transition: transform 0.4s var(--ease);
 }
 .footer__badge img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
 }
 .footer__badge:hover {
   transform: rotate(-6deg) scale(1.04);

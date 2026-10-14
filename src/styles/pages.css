@@ -766,3 +766,27 @@ textarea.form__input {
     inset: auto 8px 14px;
   }
 }
+
+/* ─── Not open yet ────────────────────────────────────────────────────────── */
+
+.maintenance {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+  max-width: 640px;
+  margin-inline: auto;
+  padding-block: clamp(24px, 5vw, 64px) clamp(64px, 9vw, 130px);
+  text-align: center;
+}
+.maintenance__logo {
+  width: auto;
+  height: clamp(120px, 14vw, 170px);
+  margin-bottom: 8px;
+}
+.maintenance__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 36px;
+  margin-top: 8px;
+}

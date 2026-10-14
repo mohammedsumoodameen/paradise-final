@@ -1088,11 +1088,20 @@
     width: 100%;
     margin: 34px 0 0;
   }
+  /* Square at every width: the tile, its icon and its word all shrink together with the screen. */
   .inspire__tab {
     width: 100%;
-    height: 92px;
-    font-size: 10px;
+    height: auto;
+    aspect-ratio: 1 / 1.04;
+    gap: 4px;
+    padding-inline: 2px;
+    border-radius: 32% / 34%;
+    font-size: clamp(7.5px, 2.3vw, 10px);
     letter-spacing: 0.02em;
+  }
+  .inspire__tab svg {
+    width: 34%;
+    height: auto;
   }
   .inspire__tab:hover {
     transform: none;
@@ -1124,7 +1133,9 @@
   .tile .dash {
     margin-inline: auto;
   }
+  /* Photograph first; the padding below leaves room for the round badge hanging off its foot. */
   .values__side {
+    order: -1;
     padding-left: var(--gutter);
     padding-bottom: 56px;
   }
@@ -1236,7 +1247,7 @@
   }
 }
 
-/* Phones: the stages become one square card to a row, read top to bottom. */
+/* Phones: the stages become one card to a row, a little taller than wide, read top to bottom. */
 @media (max-width: 640px) {
   .stages__grid {
     grid-template-columns: 1fr;
@@ -1246,17 +1257,17 @@
     padding-bottom: 23px;
   }
   .stage__photo {
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1.2;
   }
   .stage__label {
     inset: auto 16px 82px;
     gap: 12px;
   }
   .stage__title {
-    font-size: 34px;
+    font-size: 29px;
   }
   .stage__range {
-    font-size: 13px;
+    font-size: 12px;
   }
   .stage__go {
     width: 94px;
@@ -1267,10 +1278,6 @@
 @media (max-width: 520px) {
   .inspire__tabs {
     gap: 6px;
-  }
-  .inspire__tab {
-    font-size: 9px;
-    letter-spacing: 0;
   }
   .values__grid {
     grid-template-columns: 1fr;
