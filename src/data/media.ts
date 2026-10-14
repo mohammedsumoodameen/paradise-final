@@ -13,11 +13,14 @@ import heroPoster from '../assets/hero/hero-poster.webp'
 import play from '../assets/academics/play.webp'
 import nursery from '../assets/academics/nursery.webp'
 import primary from '../assets/academics/primary.webp'
-import middle from '../assets/academics/middle.webp'
 import readingTogether from '../assets/photos/reading-together.webp'
 import drawingTable from '../assets/photos/drawing-table.webp'
 import quietReading from '../assets/photos/quiet-reading.webp'
 import runningPath from '../assets/photos/running-path.webp'
+import withTeacher from '../assets/photos/with-teacher.webp'
+import twoFriends from '../assets/photos/two-friends.webp'
+import writingHands from '../assets/photos/writing-hands.webp'
+import runningGrass from '../assets/photos/running-grass.webp'
 
 export interface Photo {
   src: string
@@ -33,12 +36,11 @@ export const HERO_MEDIA = {
   alt: 'Children playing together in a sunlit classroom, steering cardboard cars they have built around a paper traffic light.',
 }
 
-/** One per learning stage, in the same order as ACADEMIC_STAGES (alt text lives with the stage). */
+/** One per learning stage, in the same order as JOURNEY_STAGES (alt text lives with the stage). */
 export const STAGE_MEDIA: Omit<Photo, 'alt'>[] = [
-  { src: play, width: 1024, height: 685 },
   { src: nursery, width: 1024, height: 768 },
+  { src: play, width: 1024, height: 685 },
   { src: primary, width: 1024, height: 683 },
-  { src: middle, width: 1024, height: 683 },
 ]
 
 export const PHILOSOPHY_MEDIA: { main: Photo; detail: Photo; caption: string } = {
@@ -71,3 +73,11 @@ export const ADMISSIONS_MEDIA: Photo = {
   height: 640,
   alt: 'A group of children running up a red-earth path between green trees, laughing.',
 }
+
+/** The round photograph on each admission step, in the same order as ADMISSION_STEPS. */
+export const ADMISSION_STEP_MEDIA: Photo[] = [
+  { src: withTeacher, width: 960, height: 640, alt: 'A girl at a desk listening closely as her teacher explains something.' },
+  { src: twoFriends, width: 960, height: 640, alt: 'Two boys laughing together outdoors on a sunny afternoon.' },
+  { src: writingHands, width: 960, height: 640, alt: 'A child carefully tracing letters on a ruled page with a pencil.' },
+  { src: runningGrass, width: 960, height: 640, alt: 'Children running across a sunny lawn with their arms out.' },
+]

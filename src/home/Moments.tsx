@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowLink, Chevron, Eyebrow, Go, Heading, Reveal } from '../components/ui'
-import { NEWS_CATEGORIES, formatNewsDate } from '../data/news'
+import { ArrowLink, Chevron, Go, Heading, Reveal } from '../components/ui'
 import type { NewsCategory } from '../data/news'
 import { LINKS } from '../data/site'
 import { useNews } from '../lib/content'
@@ -12,9 +11,10 @@ const TABS: { id: NewsCategory | 'all'; label: string }[] = [
 ]
 
 /**
- * News on the home page. The stories sit in a row of small cards that scrolls sideways. On a
- * wide screen the picture on the left belongs to the newest story in the chosen tab; on a narrow
- * one the row is centred under the picture, which follows whichever story is in the middle.
+ * News on the home page. The stories sit in a row of small title cards that scrolls sideways,
+ * and the picture follows the current one. On a wide screen that is the first card in view, and
+ * two arrows on the picture's edge step the row along; on a narrow one the row is centred under
+ * the picture, the current story is the one in the middle, and the arrows sit beneath.
  */
 export default function Moments() {
   const news = useNews()
@@ -23,6 +23,7 @@ export default function Moments() {
   const stories = useMemo(() => (news ?? []).filter((s) => tab === 'all' || s.category === tab).slice(0, 6), [news, tab])
   const row = useRef<HTMLUListElement>(null)
   const [current, setCurrent] = useState(0)
+  const [atEnd, setAtEnd] = useState(false)
   const lead = stories[current] ?? stories[0]
 
   // Back to the first story whenever the tab changes.
@@ -31,7 +32,7 @@ export default function Moments() {
     setCurrent(0)
   }, [tab])
 
-  // On the stacked layout, the story nearest the middle of the row is the current one.
+  // The current story: the one nearest the middle of the row when stacked, otherwise the first in view.
   useEffect(() => {
     const el = row.current
     if (!el) return
@@ -40,13 +41,13 @@ export default function Moments() {
 
     const watch = () => {
       frame = 0
-      if (!stacked.matches) return setCurrent(0)
-      const mid = el.scrollLeft + el.clientWidth / 2
+      setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 2)
+      const mid = stacked.matches ? el.scrollLeft + el.clientWidth / 2 : el.scrollLeft
       let best = 0
       let gap = Infinity
       Array.from(el.children).forEach((card, i) => {
         const c = card as HTMLElement
-        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid)
+        const d = Math.abs(c.offsetLeft + (stacked.matches ? c.offsetWidth / 2 : 0) - mid)
         if (d < gap) {
           gap = d
           best = i
@@ -58,14 +59,17 @@ export default function Moments() {
       if (!frame) frame = requestAnimationFrame(watch)
     }
 
+    queue()
     el.addEventListener('scroll', queue, { passive: true })
+    window.addEventListener('resize', queue)
     stacked.addEventListener('change', queue)
     return () => {
       cancelAnimationFrame(frame)
       el.removeEventListener('scroll', queue)
+      window.removeEventListener('resize', queue)
       stacked.removeEventListener('change', queue)
     }
-  }, [])
+  }, [stories.length])
 
   const nudge = (dir: 1 | -1) => {
     const el = row.current
@@ -85,9 +89,7 @@ export default function Moments() {
 
       <div className="moments__text">
         <Reveal>
-          <Eyebrow>News</Eyebrow>
           <Heading lines={['Our kind of', 'moments.']} />
-          <p className="copy">Dates for the diary, notes from the classroom, and the small wins worth telling everyone about.</p>
         </Reveal>
 
         <div className="chips" role="group" aria-label="Choose which news to show">
@@ -101,10 +103,7 @@ export default function Moments() {
         <ul className="moments__row" ref={row} tabIndex={0} aria-label="News stories">
           {stories.map((s, i) => (
             <li key={s.slug} className={`card moment${i === current ? ' is-current' : ''}`}>
-              <p className="moment__meta">
-                {NEWS_CATEGORIES[s.category]?.label} · <time dateTime={s.date}>{formatNewsDate(s.date)}</time>
-              </p>
-              <h3 className="moment__title">{s.title}</h3>
+              <h3 className="moment__title">{s.short ?? s.title}</h3>
               <span className="dash" aria-hidden />
               <Go to={`${LINKS.news}/${s.slug}`} className="moment__more" aria-label={`Read more: ${s.title}`}>
                 Read more
@@ -122,7 +121,7 @@ export default function Moments() {
             <button type="button" className="round-btn" onClick={() => nudge(-1)} disabled={current === 0} aria-label="Previous story">
               <Chevron dir="left" />
             </button>
-            <button type="button" className="round-btn" onClick={() => nudge(1)} disabled={current === stories.length - 1} aria-label="Next story">
+            <button type="button" className="round-btn" onClick={() => nudge(1)} disabled={atEnd || current === stories.length - 1} aria-label="Next story">
               <Chevron />
             </button>
           </div>

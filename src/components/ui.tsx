@@ -66,26 +66,33 @@ export function Heading({ lines, as: Tag = 'h2', className = '' }: { lines: stri
 
 /* ─── Motion ──────────────────────────────────────────────────────────────── */
 
-/** Fades its children up the first time they scroll into view. Does nothing without `.motion` on <html>. */
-export function Reveal({ children, className = '', delay = 0, as: Tag = 'div' }: { children: ReactNode; className?: string; delay?: number; as?: ElementType }) {
+/**
+ * Fades its children up the first time they scroll into view. With `replay`, it hides again once it
+ * drops back below the fold, so it rises afresh every time it is scrolled to. Does nothing without
+ * `.motion` on <html>.
+ */
+export function Reveal({ children, className = '', delay = 0, replay = false, as: Tag = 'div' }: { children: ReactNode; className?: string; delay?: number; replay?: boolean; as?: ElementType }) {
   const ref = useRef<HTMLElement>(null)
   const [seen, setSeen] = useState(false)
 
   useEffect(() => {
     const el = ref.current
-    if (!el || seen) return
+    if (!el || (seen && !replay)) return
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
+        if (!entry) return
+        if (entry.isIntersecting) {
           setSeen(true)
-          io.disconnect()
+          if (!replay) io.disconnect()
+        } else if (replay && entry.boundingClientRect.top > 0) {
+          setSeen(false)
         }
       },
       { rootMargin: '0px 0px -8% 0px' },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [seen])
+  }, [seen, replay])
 
   return (
     <Tag ref={ref} className={`reveal${seen ? ' is-seen' : ''} ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : undefined}>

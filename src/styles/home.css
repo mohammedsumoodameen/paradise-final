@@ -212,8 +212,11 @@
 .inspire__text {
   display: grid;
   gap: 22px;
-  max-width: 640px;
   padding-inline: clamp(28px, 4.4vw, 64px) var(--gutter);
+}
+/* The headline is two words; keep it on one line however narrow the column gets. */
+.inspire__text .display {
+  white-space: nowrap;
 }
 .inspire__card {
   margin-top: 14px;
@@ -237,14 +240,6 @@
     transform: translateY(10px);
   }
 }
-.inspire__lead {
-  font-weight: 700;
-  line-height: 1.5;
-}
-.inspire__more {
-  color: var(--ink-soft);
-  font-size: 16px;
-}
 
 /* ─── The learning journey ────────────────────────────────────────────────── */
 
@@ -256,7 +251,6 @@
   gap: 22px;
   justify-items: center;
   text-align: center;
-  max-width: 760px;
   margin: 0 auto clamp(40px, 5vw, 72px);
 }
 .stages__head p:last-child {
@@ -264,8 +258,10 @@
 }
 .stages__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(14px, 2vw, 28px);
+  max-width: 1200px;
+  margin-inline: auto;
 }
 .stage {
   position: relative;
@@ -277,7 +273,7 @@
 }
 .stage__photo {
   display: block;
-  aspect-ratio: 1 / 1.42;
+  aspect-ratio: 1 / 1.45;
   border-radius: clamp(34px, 4.6vw, 64px);
 }
 .stage__photo::after {
@@ -289,11 +285,51 @@
 .stage:hover .stage__photo img {
   transform: scale(1.07);
 }
+/* A circle half again as wide as the card, so only the shallow top of its curve shows inside. */
+.stage__dome {
+  position: absolute;
+  z-index: 1;
+  top: 46%;
+  left: -25%;
+  width: 150%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(70%);
+  transition: transform 0.55s var(--ease);
+}
+.stage:hover .stage__dome,
+.stage:focus-visible .stage__dome {
+  transform: none;
+}
 .stage__label {
   position: absolute;
+  z-index: 2;
   inset: auto 12px 64px;
   display: grid;
   gap: 8px;
+  transition: transform 0.45s var(--ease);
+}
+.stage:hover .stage__label,
+.stage:focus-visible .stage__label {
+  transform: translateY(-14px);
+}
+.stage__tag {
+  max-height: 0;
+  padding-inline: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s var(--ease),
+    opacity 0.3s;
+}
+.stage:hover .stage__tag,
+.stage:focus-visible .stage__tag {
+  max-height: 4em;
+  opacity: 1;
 }
 .stage__title {
   font-family: var(--font-display);
@@ -310,6 +346,7 @@
 }
 .stage__go {
   position: absolute;
+  z-index: 2;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
@@ -325,9 +362,11 @@
     width 0.3s var(--ease),
     background-color 0.2s;
 }
-.stage:hover .stage__go {
+.stage:hover .stage__go,
+.stage:focus-visible .stage__go {
   width: 104px;
-  background: var(--press-deep);
+  background: var(--ink);
+  color: #fff;
 }
 
 .modal--stage .modal__body {
@@ -376,6 +415,16 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 1.6vw, 22px);
   width: 100%;
+}
+/* The tiles rise further and slower than the site's usual reveal, so the climb is felt. */
+.motion .tile.reveal {
+  transform: translateY(90px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 1s var(--ease);
+}
+.motion .tile.reveal.is-seen {
+  transform: none;
 }
 .tile__word {
   font-family: var(--font-display);
@@ -450,13 +499,30 @@
 
 /* ─── Admissions ──────────────────────────────────────────────────────────── */
 
-.journey__intro {
+/* Every panel is a full screen of its own. The page scrolls through them sideways on a desktop
+   (the section pins and its track slides left, see Journey.tsx) and stacks them on phones. */
+.journey__pin {
+  position: relative;
+  background: var(--paper);
+}
+.journey__pin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 45%, rgba(255, 255, 255, 0.35), transparent 70%);
+  pointer-events: none;
+}
+.journey__track {
+  position: relative;
+}
+.journey__panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(40px, 8vw, 130px);
-  padding-block: clamp(48px, 7vw, 100px) clamp(64px, 8vw, 110px);
+  gap: clamp(40px, 7vw, 120px);
+  padding: clamp(56px, 7vw, 100px) var(--gutter);
 }
+
 .journey__art {
   position: relative;
   padding: 0 11% 9% 0;
@@ -499,113 +565,173 @@
   margin-top: 10px;
 }
 
-.steps {
+/* One step: a soft square blob in the step's deep shade, a pale shape peeping out behind it,
+   a round photograph overlapping its edge, and the words beside. */
+.step {
   --band: var(--sky);
   --blob: #0a93b3;
   --echo: #a8ecfb;
-  background: radial-gradient(120% 90% at 50% 40%, color-mix(in srgb, var(--band) 78%, #fff), var(--band));
-  overflow: hidden;
 }
-.steps--sun {
+.step--sun {
   --band: var(--sun);
-  --blob: #c66f00;
+  --blob: #d98a06;
   --echo: #ffe6a8;
 }
-.steps--leaf {
+.step--leaf {
   --band: var(--leaf);
-  --blob: #4f8a17;
-  --echo: #dff5b4;
+  --blob: #5f9e22;
+  --echo: #e4f8b8;
 }
-.steps--coral {
+.step--coral {
   --band: var(--coral);
-  --blob: #c93c2a;
-  --echo: #ffd3ca;
+  --blob: #d9503d;
+  --echo: #ffd9d1;
 }
-.steps__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: center;
-  gap: clamp(32px, 6vw, 96px);
-  padding-block: clamp(64px, 9vw, 130px);
-}
-.steps__words {
-  display: grid;
-  gap: clamp(28px, 4vw, 48px);
-  padding-left: clamp(0px, 5vw, 72px);
-}
-.steps__slide {
-  display: grid;
-  gap: 18px;
-}
-.steps .eyebrow {
-  color: var(--ink);
-}
-.motion .steps__slide {
-  animation: slide 0.6s var(--ease);
-}
-@keyframes slide {
-  from {
-    opacity: 0;
-    transform: translateX(28px);
-  }
-}
-.steps__nav {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.steps__dots {
-  display: flex;
-  gap: 8px;
-}
-.steps__dots button {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid var(--ink);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  transition: background-color 0.25s;
-}
-.steps__dots button[aria-current] {
-  background: #fff;
-  border-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-}
-.steps__blob {
+.step__art {
   position: relative;
   justify-self: center;
+  width: min(78%, 440px);
+  isolation: isolate;
+}
+.step__blob {
   display: grid;
   place-items: center;
-  width: min(100%, 380px);
-  aspect-ratio: 1 / 1.06;
+  align-content: center;
+  gap: 30px;
+  aspect-ratio: 1;
   border-radius: 38% / 40%;
-  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--blob) 84%, #fff), var(--blob));
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--blob) 82%, #fff), var(--blob));
   color: #fff;
-  box-shadow: var(--shadow);
-  transition: background 0.6s;
-}
-.steps__blob .steps__slide {
-  justify-items: center;
-  gap: 26px;
+  box-shadow: 0 40px 60px -34px rgba(0, 0, 0, 0.45);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 0.08em;
+  font-size: 19px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.steps__echo {
+.step__blob svg {
+  width: 30%;
+  height: auto;
+}
+.step__echo {
   position: absolute;
-  right: -9%;
-  bottom: -7%;
-  width: 46%;
+  z-index: -1;
+  width: 36%;
   aspect-ratio: 1;
   border-radius: 38% / 40%;
   background: var(--echo);
-  z-index: -1;
+}
+.step__art--top .step__echo {
+  top: -7%;
+  right: -6%;
+}
+.step__art--bottom .step__echo {
+  bottom: -7%;
+  right: -5%;
+}
+.step__photo {
+  position: absolute;
+  width: 38%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+.step__art--top .step__photo {
+  left: -12%;
+  bottom: -10%;
+}
+.step__art--bottom .step__photo {
+  left: -10%;
+  top: -7%;
+}
+.step__words {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  max-width: 560px;
+}
+.step__words .eyebrow {
+  color: var(--ink);
+}
+.step__lead {
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.step__words .arrow-link {
+  margin-top: 8px;
+}
+
+/* The step icons along the bottom: the one in view sits in a white disc. Only shown once the
+   first step has slid in, and only where the panels scroll sideways. */
+.journey__dots {
+  display: none;
+}
+
+/* Phones, and anyone who has asked for less motion: the panels stack, each on its own colour. */
+.step {
+  background: var(--band);
+}
+
+@media (min-width: 901px) {
+  /* One screen of scrolling per panel, plus the fade to white after the last (FADE in Journey.tsx). */
+  .motion .journey {
+    height: calc((var(--panels) + 0.6) * 100vh);
+  }
+  .motion .journey__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .motion .journey__track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+  }
+  .motion .journey__panel {
+    flex: 0 0 100%;
+    height: 100%;
+    padding-inline: max(var(--gutter), calc((100vw - 1500px) / 2));
+  }
+  .motion .step {
+    background: none;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+  .motion .journey__dots {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(24px, 5vh, 56px);
+    display: flex;
+    gap: 10px;
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.4s,
+      transform 0.4s var(--ease);
+  }
+  .motion .journey__dots.is-on {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+  .journey__dots button {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--ink);
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s;
+  }
+  .journey__dots button[aria-current] {
+    background: #fff;
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.35);
+  }
 }
 
 /* ─── Life at school ──────────────────────────────────────────────────────── */
@@ -747,6 +873,7 @@
 /* ─── News ────────────────────────────────────────────────────────────────── */
 
 .moments {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
   align-items: center;
@@ -754,7 +881,7 @@
 }
 .moments__photo {
   aspect-ratio: 1 / 0.98;
-  border-radius: 0 0 var(--r-xl) 0;
+  border-radius: 0 var(--r-xl) var(--r-xl) 0;
 }
 .moments__text {
   display: grid;
@@ -769,6 +896,7 @@
   padding-right: var(--gutter);
 }
 .moments__row {
+  position: relative;
   display: flex;
   gap: 18px;
   width: 100%;
@@ -783,31 +911,33 @@
 .moment {
   flex: none;
   display: grid;
-  align-content: start;
+  grid-template-rows: auto auto 1fr;
   justify-items: center;
-  width: min(74vw, 290px);
+  gap: 2px;
+  width: min(74vw, 280px);
+  padding: 34px 26px 32px;
   text-align: center;
   scroll-snap-align: start;
 }
-.moment__meta {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 12px;
-}
+/* Two lines at most, so every card in the row stands the same height. */
 .moment__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   font-size: 21px;
   font-weight: 500;
   line-height: 1.3;
   text-wrap: balance;
 }
+.moment .dash {
+  margin-block: 14px 18px;
+}
 .moment__more {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  margin-top: 8px;
+  align-self: end;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -819,9 +949,20 @@
 .moments__none {
   color: var(--ink-soft);
 }
-/* The arrows belong to the stacked layout; a wide screen shows several stories at once. */
+/* On a wide screen the arrows stand one above the other, astride the picture's right edge. */
 .moments__nav {
-  display: none;
+  position: absolute;
+  z-index: 1;
+  left: 46%;
+  top: 50%;
+  display: grid;
+  gap: 10px;
+  transform: translate(-50%, -20%);
+}
+.moments__nav .round-btn {
+  width: 72px;
+  height: 72px;
+  box-shadow: var(--shadow-soft);
 }
 .moments__nav .round-btn:disabled {
   opacity: 0.35;
@@ -884,18 +1025,13 @@
 /* ─── Narrow screens ──────────────────────────────────────────────────────── */
 
 @media (max-width: 1080px) {
-  .stages__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 36px;
-  }
   .voices__grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 900px) {
-  .journey__intro,
-  .steps__inner,
+  .journey__panel,
   .faq {
     grid-template-columns: 1fr;
   }
@@ -913,9 +1049,6 @@
   }
   .hero__actions {
     justify-items: center;
-  }
-  .steps__words {
-    padding-left: 0;
   }
   .faq__head {
     position: static;
@@ -1010,16 +1143,10 @@
   .journey__art {
     max-width: 480px;
   }
-  .steps__blob {
-    order: -1;
-    width: min(64%, 260px);
-    justify-self: start;
+  .step__art {
+    width: min(78%, 360px);
+    margin-bottom: 28px;
   }
-  .steps__blob svg {
-    width: 64px;
-    height: 64px;
-  }
-
   .life__stage {
     --card: 82vw;
   }
@@ -1094,9 +1221,15 @@
     color: var(--accent);
   }
   .moments__nav {
+    position: static;
     display: flex;
     gap: 10px;
     margin-top: 14px;
+    transform: none;
+  }
+  .moments__nav .round-btn {
+    width: 56px;
+    height: 56px;
   }
   .moments__text > .arrow-link {
     margin-top: 28px;

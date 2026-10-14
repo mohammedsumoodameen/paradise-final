@@ -12,6 +12,8 @@ export interface NewsStory {
   /** URL-safe id: the story lives at /news/<slug>. */
   slug: string
   title: string
+  /** A few words for the home page's small cards; the full title is used when there is none. */
+  short?: string
   category: NewsCategory
   /** ISO date (YYYY-MM-DD), so stories sort by plain string comparison. */
   date: string
@@ -44,6 +46,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'admissions-2027-28-open',
     title: 'Admissions for 2027–28 open on 1 October',
+    short: 'Admissions Open',
     category: 'announcements',
     date: '2026-09-22',
     excerpt:
@@ -61,6 +64,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'water-week',
     title: 'Water Week: what a bucket and a sponge can teach',
+    short: 'Water Week',
     category: 'events',
     date: '2026-09-12',
     excerpt:
@@ -78,6 +82,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'little-artists-exhibition',
     title: 'The Little Artists Exhibition fills the hall',
+    short: 'Little Artists',
     category: 'events',
     date: '2026-08-30',
     excerpt:
@@ -95,6 +100,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'reading-corner',
     title: 'A new reading corner, stocked by our parents',
+    short: 'A New Reading Corner',
     category: 'community',
     date: '2026-08-18',
     excerpt:
@@ -112,6 +118,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'mud-day',
     title: 'Mud Day, and why we let them get messy',
+    short: 'Mud Day',
     category: 'events',
     date: '2026-07-25',
     excerpt:
@@ -129,6 +136,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'district-drawing-competition',
     title: 'Three prizes at the district drawing competition',
+    short: 'Three Prizes',
     category: 'achievements',
     date: '2026-07-08',
     excerpt:
@@ -146,6 +154,7 @@ const STORIES: NewsStory[] = [
   {
     slug: 'walking-bus',
     title: 'The walking bus is back for the new term',
+    short: 'The Walking Bus',
     category: 'community',
     date: '2026-06-15',
     excerpt:

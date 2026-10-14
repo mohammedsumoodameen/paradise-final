@@ -61,8 +61,6 @@ export default function Inspire() {
             {strand.text}
           </p>
         </div>
-        <p className="inspire__lead">{PHILOSOPHY.lead}</p>
-        <p className="inspire__more">{PHILOSOPHY.text}</p>
       </Reveal>
     </section>
   )

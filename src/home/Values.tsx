@@ -1,6 +1,6 @@
 import { ArrowLink, Eyebrow, Heading, Reveal } from '../components/ui'
 import { VALUES_MEDIA } from '../data/media'
-import { ACADEMIC_STAGES, LINKS, VALUES } from '../data/site'
+import { JOURNEY_STAGES, LINKS, VALUES } from '../data/site'
 
 /**
  * Faith, character and community: six values as a grid of tiles, with a photograph running off
@@ -18,7 +18,7 @@ export default function Values() {
 
         <ul className="values__grid">
           {VALUES.items.map((v, i) => (
-            <Reveal as="li" key={v.word} className="card tile" delay={(i % 2) * 90}>
+            <Reveal as="li" key={v.word} className="card tile" delay={(i % 2) * 120} replay>
               <h3 className="tile__word">{v.word}</h3>
               <span className="dash" aria-hidden />
               <p>{v.text}</p>
@@ -36,9 +36,9 @@ export default function Values() {
           </div>
           <a href={LINKS.academics} className="roundel">
             <span className="roundel__ring" aria-hidden />
-            <strong>{ACADEMIC_STAGES.length}</strong>
+            <strong>{JOURNEY_STAGES.length}</strong>
             <span className="roundel__what">stages, one school</span>
-            <span className="roundel__more">Age 3 to Grade 8</span>
+            <span className="roundel__more">KG to Grade 8</span>
           </a>
         </div>
       </div>

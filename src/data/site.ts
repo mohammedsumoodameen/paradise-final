@@ -121,9 +121,7 @@ export const HERO = {
 
 export const PHILOSOPHY = {
   label: 'Our philosophy',
-  headline: ['Little moments.', 'Lifelong foundations.'],
-  lead: 'A child does not grow in one direction at a time. So we do not teach in one direction at a time.',
-  text: 'A crayon held properly for the first time. A turn waited for. A question asked out loud. A quiet thank-you. We treat these small things as the real curriculum, because the reading, the reasoning and the confidence that come later all stand on them.',
+  headline: ['We nurture.'],
   /** The four ways a child grows here. Kept to a line each. */
   strands: [
     { word: 'Academically', text: 'Strong foundations in language, number and thinking, built without hurry.' },
@@ -174,6 +172,40 @@ export interface AcademicStage {
   alt: string
 }
 
+/** The three stages shown on the home page's learning journey, in the order they appear. */
+export const JOURNEY_STAGES: AcademicStage[] = [
+  {
+    id: 'kg',
+    index: '01',
+    title: '2 Year KG',
+    range: 'Two years',
+    tagline: 'Reading, counting and confidence',
+    text: 'Theme-based weeks turn play into early literacy and numeracy. Phonics, letter formation, number sense and daily show-and-tell build the confidence children carry into Grade 1.',
+    subjects: ['Phonics', 'Pre-Writing', 'Number Sense', 'Arabic Basics', 'Show & Tell'],
+    alt: 'A young child drawing a figure on paper with a crayon.',
+  },
+  {
+    id: 'preschool',
+    index: '02',
+    title: '3 Year Preschool',
+    range: 'Three years',
+    tagline: 'First steps, gentle and joyful',
+    text: 'Sensory play, rhymes and routine, growing year by year into early reading and counting. Children learn to hold a crayon, name their colours and shapes, and share a table with friends — the quiet groundwork every later skill stands on.',
+    subjects: ['Sensory Play', 'Rhymes & Stories', 'Colours & Shapes', 'Motor Skills', 'Social Habits'],
+    alt: "A child's hands covered in blue and green paint, spreading it across a sheet of paper.",
+  },
+  {
+    id: 'grade-school',
+    index: '03',
+    title: 'Grade School',
+    range: 'Grades 1–8',
+    tagline: 'Strong foundations, English medium',
+    text: 'Formal English-medium schooling with a full core of subjects, continuous assessment in place of high-pressure exams, and reading every single day. Values and Quran study run alongside academics, never after them.',
+    subjects: ['English', 'Mathematics', 'Science', 'Social Science', 'Arabic', 'Malayalam', 'Quran & Values'],
+    alt: 'A girl studying a yellow flower through a magnifying glass.',
+  },
+]
+
 /** The four real stages the school runs, age 3 through Grade 8. */
 export const ACADEMIC_STAGES: AcademicStage[] = [
   {
@@ -218,11 +250,36 @@ export const ACADEMIC_STAGES: AcademicStage[] = [
   },
 ]
 
+/** The four steps of joining, read left to right in the home page's sideways-scrolling band. */
 export const ADMISSION_STEPS = [
-  { index: '01', title: 'Enquire', text: 'Call or message us. We will talk through the stage your child is ready for and what a week there looks like.' },
-  { index: '02', title: 'Visit', text: 'Walk the campus with us, meet the teachers and watch a class in session before you decide anything.' },
-  { index: '03', title: 'Apply', text: "Fill in the admission form with your child's details and previous school records, if there are any." },
-  { index: '04', title: 'Join', text: 'Confirm the seat, collect the welcome kit, and we will see you on the first morning of term.' },
+  {
+    index: '01',
+    title: 'Enquire',
+    badge: 'The first hello',
+    lead: 'A conversation before anything else.',
+    text: 'Call or message us. We will talk through the stage your child is ready for and what a week there looks like.',
+  },
+  {
+    index: '02',
+    title: 'Visit',
+    badge: 'The open door',
+    lead: 'See a real morning, not a showcase.',
+    text: 'Walk the campus with us, meet the teachers and watch a class in session before you decide anything.',
+  },
+  {
+    index: '03',
+    title: 'Apply',
+    badge: 'The paperwork',
+    lead: 'One simple form, when you are sure.',
+    text: "Fill in the admission form with your child's details and previous school records, if there are any.",
+  },
+  {
+    index: '04',
+    title: 'Join',
+    badge: 'The first day',
+    lead: 'A seat kept, and a welcome waiting.',
+    text: 'Confirm the seat, collect the welcome kit, and we will see you on the first morning of term.',
+  },
 ]
 
 /** Placeholder answers written from what the site already claims - confirm before launch. */

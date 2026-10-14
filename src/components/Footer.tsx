@@ -1,4 +1,4 @@
-import mark from '../assets/mark.png'
+import logo from '../assets/logo/logo-transparent.png'
 import { EMAIL, LINKS, PHONE, PHONE_HREF, SCHOOL, SOCIALS, WHATSAPP_HREF, isLive } from '../data/site'
 import { Chat, Go, Mail, Phone } from './ui'
 
@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
 
         <Go to={LINKS.home} className="footer__badge" aria-label={`${SCHOOL.full}, home`}>
-          <img src={mark} alt="" width={96} height={96} loading="lazy" />
+          <img src={logo} alt="" width={400} height={494} loading="lazy" />
         </Go>
 
         <div className="footer__col">

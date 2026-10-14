@@ -1,21 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import mark from '../assets/mark.png'
+import logo from '../assets/logo/logo-transparent.png'
 import { LINKS, NAV_ITEMS, PHONE, PHONE_HREF, SCHOOL, WHATSAPP_HREF } from '../data/site'
 import { Cap, Chat, Chevron, Go, Menu, Modal, Phone, Pin } from './ui'
 
-/** The school's name beside the kite mark, used in the header, the menu and the footer. */
+/** The school's logo, linking home; used in the header and the menu. */
 export function Brand({ onClick }: { onClick?: () => void }) {
   return (
     <Go to={LINKS.home} className="brand" aria-label={`${SCHOOL.full}, home`} onClick={onClick}>
-      <span className="brand__mark">
-        <img src={mark} alt="" width={64} height={64} />
-      </span>
-      <span className="brand__text">
-        <span className="brand__name">{SCHOOL.name.toLowerCase()}</span>
-        <span className="brand__name">{SCHOOL.descriptor.toLowerCase()}</span>
-        <span className="brand__line">A pleasant life begins here</span>
-      </span>
+      <img src={logo} alt="" width={400} height={494} />
     </Go>
   )
 }
