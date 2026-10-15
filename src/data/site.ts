@@ -1,6 +1,6 @@
-export const PHONE = '+91 9072 500 435'
-export const PHONE_HREF = 'tel:+919072500435'
-export const WHATSAPP_HREF = 'https://wa.me/919072500435'
+export const PHONE = '+91 9072 973 803'
+export const PHONE_HREF = 'tel:+919072973803'
+export const WHATSAPP_HREF = 'https://wa.me/919072973803'
 export const EMAIL = 'hello@paradisepreschool.in'
 
 /** The name as it is set in the wordmark, the footer and page titles. */
@@ -72,7 +72,7 @@ export const NAV_ITEMS: NavItem[] = [
     blurb: 'Who we are, and what we hope every child carries with them.',
     subLinks: [
       { name: 'Our philosophy', href: LINKS.about },
-      { name: 'Faith, character & community', href: LINKS.values },
+      { name: 'Development, discovery & character', href: LINKS.values },
       { name: 'In parents’ words', href: LINKS.testimonials },
       { name: 'Open a Paradise school', href: LINKS.franchise },
     ],
@@ -112,36 +112,39 @@ export const NAV_ITEMS: NavItem[] = [
    Everything the home page says lives below, so it can be edited in one place.  */
 
 export const HERO = {
-  label: 'A place to belong, believe & become',
-  headline: ['Growing Little Hearts.', 'Opening Big Worlds.'],
+  label: 'Paradise Junior School Network',
+  headline: ['Welcome to', 'Paradise.'],
   text: 'A joyful beginning rooted in faith, curiosity, kindness, and the courage to discover something new every day.',
-  cta: { label: 'Plan a Visit', href: LINKS.visit },
-  link: { label: 'Explore the learning journey', href: LINKS.academics },
+  links: [
+    { label: 'Admission', href: LINKS.admission },
+    { label: 'Teacher Training', href: LINKS.pet },
+    { label: 'Apply for Franchise', href: `${LINKS.franchise}#enquire` },
+  ],
 }
 
 export const PHILOSOPHY = {
   label: 'Our philosophy',
   headline: ['We nurture.'],
-  /** The four ways a child grows here. Kept to a line each. */
+  /** The four ways a child grows here. */
   strands: [
-    { word: 'Academically', text: 'Strong foundations in language, number and thinking, built without hurry.' },
-    { word: 'Emotionally', text: 'Children who can name a feeling, try again, and know they are safe.' },
-    { word: 'Socially', text: 'Sharing a table, listening to a friend, working something out together.' },
-    { word: 'Spiritually', text: 'Faith as part of the day itself, lived with gratitude and good character.' },
+    { word: 'Academically', text: 'Language, Maths and EVS are learned through touch, play and real-life discovery, alongside Quran study and memorization that grow with each child’s pace.' },
+    { word: 'Emotionally', text: 'Secure bonds with caring teachers help children feel safe, name their feelings and try new things without fear.' },
+    { word: 'Socially', text: 'Shared play and group tasks build empathy, patience, turn-taking and friendship, the skills that shape lifelong relationships.' },
+    { word: 'Spiritually', text: 'Quran study and daily-life adhkar, along with gratitude and kindness, give children a sense of purpose, values and wonder.' },
   ],
 }
 
 export const VALUES = {
-  label: 'Faith, character & community',
-  headline: ['Faith, lived in', 'the small things.'],
+  label: 'Development, discovery & character',
+  headline: ['Every child,', 'growing in six ways.'],
   text: 'Our Islamic values are not a subject on the timetable. They are how a morning begins, how a disagreement is settled, and how a friend is treated when no one is watching.',
   items: [
-    { word: 'Kindness', text: 'Noticing who has no one to sit beside, and moving over.' },
-    { word: 'Gratitude', text: 'A thank-you that is meant, said before it is asked for.' },
-    { word: 'Respect', text: 'For teachers, for each other, and for the smallest in the room.' },
-    { word: 'Curiosity', text: 'Every “why?” treated as the beginning of something.' },
-    { word: 'Responsibility', text: 'Tidying what you took out. Owning what you said.' },
-    { word: 'Compassion', text: 'Learning that someone else’s bad day is yours to soften.' },
+    { word: 'Cognitive', text: 'Maths and EVS learned by touching, sorting, asking and solving.' },
+    { word: 'Language', text: 'Five languages, built through rhymes, stories and confident speaking.' },
+    { word: 'Physical', text: 'Strong little bodies, through the kids’ gym, sand pit, martial arts and outdoor play.' },
+    { word: 'Social & emotional', text: 'Friendship, patience and feelings understood, guided by caring teachers.' },
+    { word: 'Creative', text: 'Puppetry, origami, clay and art that give every child a voice.' },
+    { word: 'Spiritual & moral', text: 'Quran study, memorization and daily adhkar that shape good character.' },
   ],
 }
 
@@ -154,8 +157,8 @@ export const SCHOOL_LIFE = {
 
 export const ADMISSIONS = {
   label: 'Admissions',
-  headline: ['Every great journey', 'begins somewhere.'],
-  text: 'For many children it begins with a walk around a classroom, holding a parent’s hand. Come and see a real morning, meet the teachers, and ask us everything. The paperwork can wait until you are sure.',
+  headline: ['Every month brings', 'a new theme to explore.'],
+  text: 'Every month, a new theme. Every theme, special days to celebrate. Come and see a real morning at Paradise, meet the teachers and ask us anything.',
   cta: { label: 'Start Your Journey', href: LINKS.admission },
 }
 
@@ -251,27 +254,25 @@ export const ACADEMIC_STAGES: AcademicStage[] = [
 ]
 
 /** The four steps of joining, read left to right in the home page's sideways-scrolling band. */
-export const ADMISSION_STEPS = [
+export const ADMISSION_STEPS: { index: string; title: string; badge: string; lead?: string; text: string }[] = [
   {
     index: '01',
-    title: 'Enquire',
-    badge: 'The first hello',
-    lead: 'A conversation before anything else.',
-    text: 'Call or message us. We will talk through the stage your child is ready for and what a week there looks like.',
+    title: 'Learning is never so fun.',
+    badge: 'Learning by doing',
+    lead: 'It’s play with a purpose.',
+    text: 'At Paradise, learning is something children do, not something they sit and listen to. Through activities, play and hands-on discovery, Language, Maths and EVS become experiences a child understands and remembers.',
   },
   {
     index: '02',
-    title: 'Visit',
+    title: 'One teacher for every thirteen children.',
     badge: 'The open door',
-    lead: 'See a real morning, not a showcase.',
-    text: 'Walk the campus with us, meet the teachers and watch a class in session before you decide anything.',
+    text: 'Small groups mean every child is seen, heard and known by name. Our 140+ teachers are trained with Paradise’s own modules, and supported by psychology and ethics teams, so each child gets steady, caring attention.',
   },
   {
     index: '03',
-    title: 'Apply',
+    title: 'Your child grows best when you grow too.',
     badge: 'The paperwork',
-    lead: 'One simple form, when you are sure.',
-    text: "Fill in the admission form with your child's details and previous school records, if there are any.",
+    text: 'Paradise brings parents and grandparents into the journey. Our Parenting School helps families support learning at home, and our system keeps you connected to teachers every day.',
   },
   {
     index: '04',
@@ -319,22 +320,25 @@ export const PROGRAMS = [
 
 export const TESTIMONIALS = [
   {
-    name: 'Saniya Nazar',
-    initials: 'SN',
+    name: 'Hiba Fathima',
+    relation: 'Mother of Zain',
+    initials: 'HF',
     color: '#fb2f64',
-    text: "It's been a great opportunity for my daughter to get close to Quran. She has shown great interest in reciting Surahs. My daughter tries to recite the daily adhkars own her own. The teaching techniques are innovative and deserves appreciation. Overall, there is a remarkable improvement in the spiritual and academic side of my daughter. All thanks to the teachers for their patience and hard work.",
+    text: 'My son’s bag has no heavy notebooks, but he comes home with a full story every day. Today he told me he made an elephant out of clay. This is real learning, and I can see it.',
   },
   {
-    name: 'Fathima Rizwan',
-    initials: 'FR',
+    name: 'Afsana Jasmin',
+    relation: 'Mother of Diya',
+    initials: 'AJ',
     color: '#06437c',
-    text: "I have seen a tremendous change in my son after joining Paradise Preschool. His behavior, character, attitude, speech, language & spelling has improved remarkably. The teachers are very dedicated and caring. I'm truly grateful for the positive impact Paradise Preschool has had on my child's overall development.",
+    text: 'My son never finished his lunch at home. Here he eats everything, because the teachers sit with the children and make mealtime a happy time.',
   },
   {
-    name: 'Aysha Shareef',
-    initials: 'AS',
+    name: 'Ahana Hadiya',
+    relation: 'Mother of Mohammed Amil',
+    initials: 'AH',
     color: '#60aa48',
-    text: "Paradise Preschool has been a wonderful experience for our family. My child has blossomed both academically and socially. The creative teaching methods and the warm, nurturing environment have made learning a joyful experience. We couldn't be happier with the progress our little one has made.",
+    text: 'My daughter was a little slow to open up. The teachers noticed and gave her time. They never compared her with anyone, and that meant everything to me.',
   },
 ]
 

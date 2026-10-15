@@ -205,12 +205,14 @@ export const useEvents = () => useQuery(EVENTS_QUERY, mapEvents, BUNDLED_EVENTS)
 
 export interface Testimonial {
   name: string
+  /** How they know the school, e.g. "Mother of Zain". Shown as "Parent" when blank. */
+  relation?: string
   initials: string
   color: string
   text: string
 }
 
-const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(order asc) {name, text, color}`
+const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(order asc) {name, relation, text, color}`
 
 const initials = (name: string) =>
   name

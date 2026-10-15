@@ -84,8 +84,11 @@ export default function Hero() {
             <Heading as="h1" lines={HERO.headline} className="display--hero" />
             <p className="copy">{HERO.text}</p>
             <div className="hero__actions">
-              <ArrowLink to={HERO.cta.href}>{HERO.cta.label}</ArrowLink>
-              <ArrowLink to={HERO.link.href}>{HERO.link.label}</ArrowLink>
+              {HERO.links.map((l) => (
+                <ArrowLink key={l.href} to={l.href}>
+                  {l.label}
+                </ArrowLink>
+              ))}
             </div>
           </div>
 

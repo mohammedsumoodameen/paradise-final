@@ -25,7 +25,7 @@ export default function Voices() {
               <span className="dash" aria-hidden />
               <figcaption>
                 <strong>{v.name}</strong>
-                <span>Parent</span>
+                <span>{v.relation || 'Parent'}</span>
               </figcaption>
             </figure>
           </Reveal>

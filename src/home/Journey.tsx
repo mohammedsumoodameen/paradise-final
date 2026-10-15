@@ -168,7 +168,7 @@ export default function Journey() {
                     Step {s.index} of {String(ADMISSION_STEPS.length).padStart(2, '0')}
                   </p>
                   <h3 className="display">{s.title}</h3>
-                  <p className="step__lead">{s.lead}</p>
+                  {s.lead && <p className="step__lead">{s.lead}</p>}
                   <p className="copy">{s.text}</p>
                   <ArrowLink to={LINKS.admission}>Start here</ArrowLink>
                 </div>
