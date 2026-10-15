@@ -594,6 +594,8 @@ textarea.form__input {
   border-radius: clamp(30px, 4vw, 56px) clamp(30px, 4vw, 56px) clamp(30px, 4vw, 56px) 0;
 }
 .gallery__tile img {
+  /* The photographs are portrait; keep faces in frame when the landscape tile crops them. */
+  object-position: 50% 22%;
   transition: transform 1s var(--ease);
 }
 .gallery__tile:hover img {

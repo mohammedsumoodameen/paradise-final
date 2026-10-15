@@ -1,16 +1,11 @@
-import runningGrass from '../assets/photos/running-grass.webp'
-import withTeacher from '../assets/photos/with-teacher.webp'
-import swings from '../assets/photos/swings.webp'
-import blocks from '../assets/photos/blocks.webp'
-import colouring from '../assets/photos/colouring.webp'
-import twoFriends from '../assets/photos/two-friends.webp'
-import fountain from '../assets/photos/fountain.webp'
-import alphabet from '../assets/photos/alphabet.webp'
-import byTheWater from '../assets/photos/by-the-water.webp'
-import onTheGround from '../assets/photos/on-the-ground.webp'
-import bookshelf from '../assets/photos/bookshelf.webp'
-import highSwing from '../assets/photos/high-swing.webp'
-import writingHands from '../assets/photos/writing-hands.webp'
+import umbrella from '../assets/gallery/gallery7.jpeg'
+import chinInHand from '../assets/gallery/gallery5.jpeg'
+import flag from '../assets/gallery/gallery6.jpeg'
+import paperFlowers from '../assets/gallery/gallery4.jpeg'
+import firstDay from '../assets/gallery/gallery3.jpeg'
+import twoFlowers from '../assets/gallery/gallery10.jpeg'
+import onTheWay from '../assets/gallery/gallery8.jpeg'
+import readyToGo from '../assets/gallery/gallery9.jpeg'
 
 export type GalleryCategory = 'play' | 'learning' | 'school-life'
 
@@ -34,114 +29,73 @@ export const GALLERY_FILTERS: { id: GalleryCategory | 'all'; label: string }[] =
 ]
 
 /**
- * Every photograph on file, ordered so the mix of shapes and subjects stays varied as the
- * page is read down. These are openly licensed placeholders (see src/assets/photos/SOURCES.md);
- * photographs published in Sanity Studio take their place automatically.
+ * Every photograph on file, ordered so the mix of subjects stays varied as the page is read
+ * down. Photographs published in Sanity Studio take their place automatically.
  */
 export const GALLERY_PHOTOS: GalleryPhoto[] = [
   {
-    src: runningGrass,
+    src: umbrella,
     width: 960,
-    height: 640,
-    category: 'play',
-    caption: 'Out on the grass',
-    alt: 'Children running across a sunlit lawn with their arms stretched out like wings.',
-  },
-  {
-    src: withTeacher,
-    width: 960,
-    height: 640,
-    category: 'learning',
-    caption: 'One to one',
-    alt: 'A girl working through a page at a table while an adult beside her points to the line.',
-  },
-  {
-    src: swings,
-    width: 960,
-    height: 640,
-    category: 'play',
-    caption: 'On the swings',
-    alt: 'Girls laughing together on a row of playground swings.',
-  },
-  {
-    src: blocks,
-    width: 960,
-    height: 640,
-    category: 'play',
-    caption: 'Building blocks',
-    alt: 'A close view of brightly coloured wooden building blocks stacked together.',
-  },
-  {
-    src: colouring,
-    width: 960,
-    height: 640,
-    category: 'learning',
-    caption: 'Colouring in',
-    alt: 'The hands of a child colouring a printed picture, with pencils spread across the table.',
-  },
-  {
-    src: twoFriends,
-    width: 960,
-    height: 640,
+    height: 1280,
     category: 'school-life',
-    caption: 'Two friends',
-    alt: 'Two boys sitting outdoors on a sunny day, turned toward each other and laughing.',
+    caption: 'Rainy day ready',
+    alt: 'A smiling girl in the school uniform holding a bright yellow umbrella, her school bag on her back.',
   },
   {
-    src: fountain,
-    width: 960,
-    height: 768,
-    category: 'play',
-    caption: 'Splash',
-    alt: 'A child in a bright tie-dye shirt standing in the spray of a fountain.',
-  },
-  {
-    src: alphabet,
-    width: 960,
-    height: 636,
-    category: 'learning',
-    caption: 'Letters first',
-    alt: 'An alphabet worksheet on a dark desk with coloured pencils lying beside it.',
-  },
-  {
-    src: byTheWater,
-    width: 960,
-    height: 640,
+    src: chinInHand,
+    width: 764,
+    height: 1280,
     category: 'school-life',
-    caption: 'Side by side',
-    alt: 'Two girls sitting together on the grass, looking out over the water.',
+    caption: 'All smiles',
+    alt: 'A boy in the school uniform and cap sitting on a step, chin resting in his hand and smiling.',
   },
   {
-    src: onTheGround,
+    src: flag,
     width: 960,
-    height: 640,
-    category: 'play',
-    caption: 'Small discoveries',
-    alt: 'A girl crouched on the ground outdoors, absorbed in something she has found.',
-  },
-  {
-    src: bookshelf,
-    width: 960,
-    height: 540,
+    height: 1280,
     category: 'school-life',
-    caption: 'The reading shelf',
-    alt: 'A shelf of well-used books standing spine out.',
+    caption: 'Flying the flag',
+    alt: 'A boy in uniform waving a small Indian flag in front of the Paradise Junior School sign.',
   },
   {
-    src: highSwing,
+    src: paperFlowers,
     width: 960,
-    height: 640,
+    height: 1280,
     category: 'play',
-    caption: 'As high as it goes',
-    alt: 'A child at the top of a swing, outlined against a pale sky.',
+    caption: 'Paper flowers',
+    alt: 'A girl in the plaid school pinafore tilting her head, holding a bunch of colourful paper flowers.',
   },
   {
-    src: writingHands,
+    src: firstDay,
     width: 960,
-    height: 640,
-    category: 'learning',
-    caption: 'Pencil work',
-    alt: 'A small hand holding a pencil over a page of handwriting practice.',
+    height: 1280,
+    category: 'school-life',
+    caption: 'First day',
+    alt: 'A boy in his new uniform, cap and school bag standing by a doorway.',
+  },
+  {
+    src: twoFlowers,
+    width: 960,
+    height: 1280,
+    category: 'play',
+    caption: 'Made by hand',
+    alt: 'A boy in the sports uniform holding up a paper flower in each hand.',
+  },
+  {
+    src: onTheWay,
+    width: 960,
+    height: 1280,
+    category: 'school-life',
+    caption: 'On the way',
+    alt: 'A boy in uniform smiling on a leafy lane, both hands on the straps of his school bag.',
+  },
+  {
+    src: readyToGo,
+    width: 960,
+    height: 1280,
+    category: 'school-life',
+    caption: 'Ready to go',
+    alt: 'A boy in uniform with his school bag on, standing beside a wooden bench.',
   },
 ]
 
